@@ -79,7 +79,12 @@ inoremap <c-c> <ESC>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+let mapleader = " "
+
 set relativenumber             " Show relative line numbers
+noremap <Leader>rb :! cargo build<CR>
+noremap <Leader>rc :! cargo check<CR>
+noremap <Leader>rr :! cargo run<CR>
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
