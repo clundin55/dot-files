@@ -14,6 +14,7 @@ vim.opt.syntax = "on"
 vim.opt.relativenumber = true
 vim.opt.ruler = true
 vim.opt.undofile = true
+vim.opt.scrolloff = 8
 
 -- Install packer if it's not installed
 local execute = vim.api.nvim_command
@@ -63,6 +64,11 @@ vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<cr>', {noremap
 vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<cr>', {noremap=true})
+
+
+-- nice to have for neovim config
+vim.api.nvim_set_keymap('n', '<leader>ve', ':e ~/.config/nvim/init.lua<cr>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>vs', ':source ~/.config/nvim/init.lua<cr>', {noremap=true})
 
 -- Set up extended rust-analyzer
 require('rust-tools').setup(opts)
