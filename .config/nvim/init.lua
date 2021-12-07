@@ -39,6 +39,7 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'airblade/vim-rooter'
     use 'jremmen/vim-ripgrep'
+    use 'voldikss/vim-floaterm'
     use {
       'nvim-telescope/telescope.nvim',
       requires = { {'nvim-lua/plenary.nvim'} }
@@ -58,6 +59,12 @@ end)
 
 -- Set colorscheme through vimscript
 vim.cmd[[colorscheme tokyonight]]
+
+-- Floaterm mappings
+vim.api.nvim_set_keymap('n', '<leader>tc', ':FloatermNew<cr>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>tt', '<C-\\><c-n>:FloatermToggle<cr>', {noremap=true})
+-- Terminal mode toggle
+vim.api.nvim_set_keymap('t', '<leader>tt', '<C-\\><c-n>:FloatermToggle<cr>', {noremap=true})
 
 -- Telescope mappings
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<cr>', {noremap=true})
