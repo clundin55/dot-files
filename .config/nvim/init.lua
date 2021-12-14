@@ -15,6 +15,7 @@ vim.opt.relativenumber = true
 vim.opt.ruler = true
 vim.opt.undofile = true
 vim.opt.scrolloff = 8
+vim.opt.hidden = true
 
 -- Install packer if it's not installed
 local execute = vim.api.nvim_command
@@ -36,10 +37,16 @@ local use = require('packer').use
 require('packer').startup(function()
     use {'wbthomason/packer.nvim', opt = true}
     use 'folke/tokyonight.nvim'
+    use 'shaunsingh/nord.nvim'
     use 'neovim/nvim-lspconfig'
     use 'airblade/vim-rooter'
-    use 'jremmen/vim-ripgrep'
+    use 'tpope/vim-fugitive'
     use 'voldikss/vim-floaterm'
+    use 'jremmen/vim-ripgrep'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
     use {
       'nvim-telescope/telescope.nvim',
       requires = { {'nvim-lua/plenary.nvim'} }
@@ -56,6 +63,19 @@ require('packer').startup(function()
     }
 end)
 
+-- enable tree-sitter
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 -- Set colorscheme through vimscript
 vim.cmd[[colorscheme tokyonight]]
@@ -83,7 +103,7 @@ require('rust-tools').setup(opts)
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local nvim_lsp = require('lspconfig')
-local servers = { 'pyright', 'rust_analyzer' }
+local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -92,7 +112,6 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
-
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
