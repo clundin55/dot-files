@@ -79,6 +79,13 @@ require'nvim-treesitter.configs'.setup {
 
 -- Set colorscheme through vimscript
 vim.cmd[[colorscheme tokyonight]]
+vim.api.nvim_exec([[
+    highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+]],false)
+
 
 -- Floaterm mappings
 vim.api.nvim_set_keymap('n', '<leader>tc', ':FloatermNew<cr>', {noremap=true})
