@@ -44,6 +44,13 @@ require('packer').startup(function()
     use 'voldikss/vim-floaterm'
     use 'jremmen/vim-ripgrep'
     use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+          'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        },
+        config = function() require'nvim-tree'.setup {} end
+    }
+    use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
@@ -62,6 +69,11 @@ require('packer').startup(function()
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
 end)
+
+-- enable nvim-tree
+require'nvim-tree'.setup {
+}
+
 
 -- enable tree-sitter
 require'nvim-treesitter.configs'.setup {
@@ -87,6 +99,9 @@ vim.api.nvim_exec([[
 ]],false)
 
 
+-- Nvim Tree Mappings
+vim.api.nvim_set_keymap('n', '<leader>f', ':NvimTreeToggle<cr>', {noremap=true})
+
 -- Floaterm mappings
 vim.api.nvim_set_keymap('n', '<leader>tc', ':FloatermNew<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>tt', '<C-\\><c-n>:FloatermToggle<cr>', {noremap=true})
@@ -103,6 +118,7 @@ vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<cr>', {noremap=
 -- nice to have for neovim config
 vim.api.nvim_set_keymap('n', '<leader>ve', ':e ~/.config/nvim/init.lua<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>vs', ':source ~/.config/nvim/init.lua<cr>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>vz', ':e ~/.zshrc<cr>', {noremap=true})
 
 -- Set up extended rust-analyzer
 require('rust-tools').setup(opts)
