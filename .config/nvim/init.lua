@@ -100,7 +100,7 @@ vim.api.nvim_exec([[
 
 
 -- Nvim Tree Mappings
-vim.api.nvim_set_keymap('n', '<leader>f', ':NvimTreeToggle<cr>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>o', ':NvimTreeToggle<cr>', {noremap=true})
 
 -- Floaterm mappings
 vim.api.nvim_set_keymap('n', '<leader>tc', ':FloatermNew<cr>', {noremap=true})
