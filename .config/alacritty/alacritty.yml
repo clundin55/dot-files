@@ -19,5 +19,5 @@ font:
     style: Regular
   size: 22.0
 selection:
-  save_to_clipboard: false
+  save_to_clipboard: true
 live_config_reload: true
