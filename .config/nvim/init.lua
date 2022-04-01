@@ -74,7 +74,6 @@ end)
 require'nvim-tree'.setup {
 }
 
-
 -- enable tree-sitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -97,7 +96,6 @@ vim.api.nvim_exec([[
     highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
     highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 ]],false)
-
 
 -- Nvim Tree Mappings
 vim.api.nvim_set_keymap('n', '<leader>o', ':NvimTreeToggle<cr>', {noremap=true})
@@ -126,6 +124,7 @@ require('rust-tools').setup(opts)
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local nvim_lsp = require('lspconfig')
+
 local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'ccls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
