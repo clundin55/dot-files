@@ -12,12 +12,12 @@ window:
   title: Alacritty
   dynamic_title: true
   history: 10000
+  opacity: 0.9
 font:
   normal:
     family: Hack Nerd Font Mono
     style: Regular
   size: 22.0
-background_opacity: 0.9
 selection:
   save_to_clipboard: false
 live_config_reload: true
