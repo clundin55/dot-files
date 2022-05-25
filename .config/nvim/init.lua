@@ -68,6 +68,7 @@ require('packer').startup(function()
       'nvim-lualine/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
+    use 'shaunsingh/solarized.nvim'
 end)
 
 -- enable nvim-tree
@@ -261,7 +262,7 @@ require'lualine'.setup {
     lualine_b = {'branch', 'diff',
                   {'diagnostics', sources={'nvim_lsp', 'coc'}}},
     lualine_c = { 
-        { 'filename', file_status=true, path = 1}
+        { 'filename', file_status=true, path = 2}
     },
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
