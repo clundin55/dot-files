@@ -69,7 +69,11 @@ require('packer').startup(function()
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
     use 'shaunsingh/solarized.nvim'
+    use 'marko-cerovac/material.nvim'
 end)
+
+require('material').setup()
+vim.g.material_style = "lighter"
 
 -- enable nvim-tree
 require'nvim-tree'.setup {
