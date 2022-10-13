@@ -1,6 +1,31 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+if [[ -f /etc/bash_completion.d/g4d ]]; then
+  . /etc/bash_completion.d/p4
+  . /etc/bash_completion.d/g4d
+fi
+
+if [[ -f /etc/bash_completion.d/hgd ]]; then
+  source /etc/bash_completion.d/hgd
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 autoload -Uz compinit
 fpath+=~/.zfunc
 compinit
+
+# Path to your oh-my-zsh installation.
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -62,13 +87,16 @@ compinit
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+plugins=(git web-search zsh-autosuggestions zsh-syntax-highlighting)
+
+
+#source $ZSH/oh-my-zsh.sh
 # Add VIM mode.
 bindkey -v
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -86,7 +114,15 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias tsm='transmission-remote'
+#
+
+alias citc-delete="hg citc --delete"
+alias citc-deleted-clients="citctools past_clients"
+alias citc-list-clients="hg citc --list"
+alias cl-delete="hg cls-drop"
+alias cl-summary="hg cls"
+alias apido="/google/data/ro/teams/oneplatform/apido"
+alias copybara='/google/bin/releases/copybara/public/copybara/copybara'
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
@@ -105,11 +141,24 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-[ -s "/home/carl/.scm_breeze/scm_breeze.sh" ] && source "/home/carl/.scm_breeze/scm_breeze.sh"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
 
-# Rebind capslock to escape
-#  setxkbmap -option caps:escape
 
-alias config='/usr/bin/git --git-dir=/home/carl/.cfg/ --work-tree=/home/carl'
 eval "$(starship init zsh)"
+
+
+export PATH="/usr/lib/jvm/java-17-openjdk-amd64/bin:$PATH"
+export PATH="/usr/local/google/home/clundin/.linuxbrew/opt/jdtls/bin:$PATH"
+
+[ -s "/usr/local/google/home/clundin/.scm_breeze/scm_breeze.sh" ] && source "/usr/local/google/home/clundin/.scm_breeze/scm_breeze.sh"
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+#export SDKMAN_DIR="$HOME/.sdkman"
+#[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
