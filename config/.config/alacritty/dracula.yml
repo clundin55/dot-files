@@ -7,6 +7,15 @@
 # Template
 # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 
+# Dracula theme for Alacritty
+# https://draculatheme.com/alacritty
+#
+# Color palette
+# https://spec.draculatheme.com
+#
+# Template
+# https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+
 colors:
   primary:
     background: '#282a36'
@@ -25,9 +34,9 @@ colors:
     focused_match:
       foreground: '#44475a'
       background: '#ffb86c'
-    bar:
-      background: '#282a36'
-      foreground: '#f8f8f2'
+  footer_bar:
+    background: '#282a36'
+    foreground: '#f8f8f2'
   hints:
     start:
       foreground: '#282a36'
@@ -59,3 +68,4 @@ colors:
     magenta: '#ff92df'
     cyan: '#a4ffff'
     white: '#ffffff'
+
