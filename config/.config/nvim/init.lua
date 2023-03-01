@@ -1,11 +1,11 @@
---Carl Lundin
+-- Carl Lundin
 -- Set up common options
 vim.g.mapleader = " "
 vim.opt.laststatus=2
-vim.opt.tabstop=2
-vim.opt.shiftwidth=2
-vim.opt.softtabstop=2
-vim.opt.expandtab=true
+vim.opt.tabstop=4       
+vim.opt.shiftwidth=4    
+vim.opt.softtabstop=4   
+vim.opt.expandtab=true  
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.spell = true
@@ -16,7 +16,6 @@ vim.opt.ruler = true
 vim.opt.undofile = true
 vim.opt.scrolloff = 8
 vim.opt.hidden = true
-
 
 -- Install packer if it's not installed
 local execute = vim.api.nvim_command
@@ -40,10 +39,8 @@ require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
     use 'neovim/nvim-lspconfig'
-    use 'ojroques/vim-oscyank'
---    use 'airblade/vim-rooter'
+    use 'airblade/vim-rooter'
     use 'tpope/vim-fugitive'
-    use 'tpope/vim-obsession'
     use 'voldikss/vim-floaterm'
     use 'jremmen/vim-ripgrep'
     use {
@@ -63,19 +60,10 @@ require('packer').startup(function()
     }
     use 'hrsh7th/nvim-cmp' 
     use 'hrsh7th/cmp-nvim-lsp' 
-    use 'hrsh7th/vim-vsnip' 
     use 'hrsh7th/cmp-vsnip'
-    use 'sso://clundin@user/mccloskeybr/luasnip-google.nvim'
-    use 'rafamadriz/friendly-snippets'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-buffer'
-    use 'mfussenegger/nvim-jdtls'
     use 'simrat39/rust-tools.nvim'
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use {
-        'L3MON4D3/LuaSnip',
-        config = function() require('config.snippets') end,
-    }
     use {
       'nvim-lualine/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -91,7 +79,6 @@ vim.g.material_style = "lighter"
 require'nvim-tree'.setup {
 }
 
-
 -- enable tree-sitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -105,9 +92,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
-
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Set colorscheme through vimscript
 vim.cmd[[colorscheme tokyonight]]
@@ -135,7 +119,7 @@ vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<cr>', {noremap=
 
 -- Cargo bindings
 vim.api.nvim_set_keymap('n', '<leader>cb', ':! cargo build<CR>', {noremap=true})
--- vim.api.nvim_set_keymap('n', '<leader>cc', ':! cargo check<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>cc', ':! cargo check<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>ct', ':! cargo test<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>cl', ':! cargo clippy<CR>', {noremap=true})
 
@@ -151,52 +135,16 @@ require('rust-tools').setup(opts)
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local nvim_lsp = require('lspconfig')
-local configs = require('lspconfig.configs')
 
---local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'ccls', 'jdtls'}
---for _, lsp in ipairs(servers) do
---    nvim_lsp[lsp].setup {
---      on_attach = on_attach,
---      flags = {
---        debounce_text_changes = 150,
---      }
---    }
---end
-
-configs.ciderlsp = {
- default_config = {
-   cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
-   filetypes = {
-     'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl',
-     'typescript',
-     -- NOTE: javascript is not supported, but some features do work because
-     --       of the way typescript support is implemented.
-     'javascript'
-   };
-   root_dir = nvim_lsp.util.root_pattern('BUILD');
-   settings = {};
- }
-}
-
-nvim_lsp.ciderlsp.setup{
-  on_attach = function(client, bufnr)
-    -- Omni-completion via LSP. See `:help compl-omni`. Use <C-x><C-o> in
-    -- insert mode. Or use an external autocompleter (see below) for a
-    -- smoother UX.
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    if vim.lsp.formatexpr then -- Neovim v0.6.0+ only.
-      vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr")
-    end
-    if vim.lsp.tagfunc then -- Neovim v0.6.0+ only.
-      -- Tag functionality via LSP. See `:help tag-commands`. Use <c-]> to
-      -- go-to-definition.
-      vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-    end
-
-    local opts = { noremap = true, silent = true }
-    -- See `:help vim.lsp.*` for documentation on any of the below functions.
-  end
-}
+local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'ccls' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
 
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 vim.api.nvim_set_keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap=true})
@@ -259,6 +207,7 @@ local on_attach = function(client, bufnr)
         },
     }
 end
+
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -347,66 +296,3 @@ require'lualine'.setup {
 require'nvim-web-devicons'.setup {
  default = true;
 }
-
-vim.cmd [[source /usr/share/vim/google/google.vim]]
-vim.cmd [[filetype plugin indent on]]
-
--- https://g3doc.corp.google.com/company/editors/vim/plugins/blaze.md
--- <Leader>be	Load errors from blaze
--- <Leader>bl	View build log
--- <Leader>bd	Run blaze on targets
--- <Leader>bb	Run 'blaze build'
--- <Leader>bt	Run 'blaze test'
---
--- https://g3doc.corp.google.com/company/editors/vim/plugins/relatedfiles.md?cl=head
--- b will open the BUILD file,
--- c will open the first source code (non-test) file listed,
--- t will open a test file, and so on.
--- :RelatedFilesWindow maps to leader r
-vim.cmd [[
-  Glug blaze plugin[mappings]
-  Glug relatedfiles plugin[mappings]
-]]
-
-
--- https://g3doc.corp.google.com/company/editors/vim/plugins/codefmt-google.md?cl=head
--- Autoformat on save
--- vim.cmd [[
---   Glug codefmt plugin[mappings]
---   Glug codefmt-google
---   augroup autoformat_settings
---     autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
---     autocmd FileType bzl AutoFormatBuffer buildifier
---     autocmd FileType c,cpp,javascript,typescript AutoFormatBuffer clang-format
---     autocmd FileType dart AutoFormatBuffer dartfmt
---     autocmd FileType go AutoFormatBuffer gofmt
---     autocmd FileType java AutoFormatBuffer google-java-format
---     autocmd FileType jslayout AutoFormatBuffer jslfmt
---     autocmd FileType markdown AutoFormatBuffer mdformat
---     autocmd FileType ncl AutoFormatBuffer nclfmt
---     autocmd FileType python AutoFormatBuffer pyformat
---     autocmd FileType soy AutoFormatBuffer soyfmt
---     autocmd FileType textpb AutoFormatBuffer text-proto-format
---     autocmd FileType proto AutoFormatBuffer protofmt
---     autocmd FileType sql AutoFormatBuffer format_sql
---     " autocmd FileType html,css,json AutoFormatBuffer js-beautify
---   augroup END
--- ]]
-
--- For fun from https://g3doc.corp.google.com/company/editors/vim/plugins/index.md?cl=head
-vim.cmd [[
-  Glug google-filetypes
-  Glug google-logo
-  Glug googlespell
-  Glug googlestyle
-  Glug ultisnips-google
-]]
-
-vim.api.nvim_set_keymap("i", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("s", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { noremap = true, silent = true })
-
-require("luasnip.loaders.from_vscode").lazy_load()
-
-require('luasnip-google').load_snippets()
