@@ -88,6 +88,12 @@ export EDITOR='nvim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tsm='transmission-remote'
 
+# Create a random temp dir and navigate to it.
+function rndd() {
+    DIR=$(mktemp -d)
+    pushd $DIR
+}
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
