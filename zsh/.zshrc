@@ -87,6 +87,26 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tsm='transmission-remote'
+alias rzsh="source ~/.zshrc"
+alias fls="ls | fzf"
+
+function lightterm() {
+    if [[ $OSTYPE == 'darwin'* ]]; then
+        sed -i '' '4s/.*/  - ~\/.config\/alacritty\/paper.yml/' ~/.config/alacritty/alacritty.yml
+    else
+        sed -i '4s/.*/  - ~\/.config\/alacritty\/paper.yml/' ~/.config/alacritty/alacritty.yml
+    fi
+
+}
+
+function darkterm() {
+    if [[ $OSTYPE == 'darwin'* ]]; then
+        sed -i '' '4s/.*/  - ~\/.config\/alacritty\/darcula.yml/' ~/.config/alacritty/alacritty.yml
+    else
+        sed -i '4s/.*/  - ~\/.config\/alacritty\/darcula.yml/' ~/.config/alacritty/alacritty.yml
+    fi
+}
+
 
 # Create a random temp dir and navigate to it.
 function rndd() {
