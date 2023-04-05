@@ -86,6 +86,20 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+function randir()
+{
+  TMP_DIR=$(mktemp -d)
+  pushd $TMP_DIR
+}
+
+tmks() {
+  tmux kill-session -t $(tmux ls | fzf | cut -d' ' -f 1)
+}
+
+tma() {
+  tmux a -t $(tmux ls | fzf | cut -d' ' -f 1)
+}
+
 alias tsm='transmission-remote'
 alias rzsh="source ~/.zshrc"
 alias fls="ls | fzf"
