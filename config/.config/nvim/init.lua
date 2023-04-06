@@ -16,6 +16,7 @@ vim.opt.ruler = true
 vim.opt.undofile = true
 vim.opt.scrolloff = 8
 vim.opt.hidden = true
+vim.opt.colorcolumn="80"
 
 -- Install packer if it's not installed
 local execute = vim.api.nvim_command
@@ -136,7 +137,7 @@ require('rust-tools').setup(opts)
 -- map buffer local keybindings when the language server attaches
 local nvim_lsp = require('lspconfig')
 
-local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'ccls' }
+local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'ccls', 'gopls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
