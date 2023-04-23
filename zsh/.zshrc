@@ -103,6 +103,7 @@ tma() {
 alias tsm='transmission-remote'
 alias rzsh="source ~/.zshrc"
 alias fls="ls | fzf"
+alias bmv="bulk-renamer"
 
 function lightterm() {
     if [[ $OSTYPE == 'darwin'* ]]; then
