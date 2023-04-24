@@ -92,6 +92,7 @@ function randir()
   pushd $TMP_DIR
 }
 
+alias createpyenv='python -m venv env && source env/bin/activate'
 tmks() {
   tmux kill-session -t $(tmux ls | fzf | cut -d' ' -f 1)
 }
