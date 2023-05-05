@@ -18,7 +18,7 @@ window:
 font:
   normal:
     # Uncomment if Hacker Nerd Font Mono installed
-    # family: Hack Nerd Font Mono
+    family: FiraCode Nerd Font
     style: Regular
   size: 12.0
 selection:

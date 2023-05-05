@@ -43,6 +43,7 @@ require('packer').startup(function()
     use 'airblade/vim-rooter'
     use 'tpope/vim-fugitive'
     use 'voldikss/vim-floaterm'
+    use 'tpope/vim-obsession'
     use 'jremmen/vim-ripgrep'
     use {
         'kyazdani42/nvim-tree.lua',
@@ -123,6 +124,8 @@ vim.api.nvim_set_keymap('n', '<leader>cb', ':! cargo build<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>cc', ':! cargo check<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>ct', ':! cargo test<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>cl', ':! cargo clippy<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>cf', ':! cargo fmt<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>cd', ':! cargo doc --open<CR>', {noremap=true})
 
 
 -- nice to have for neovim config
