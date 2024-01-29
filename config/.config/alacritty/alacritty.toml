@@ -1,0 +1,23 @@
+import = ["~/.config/alacritty/dracula.toml"]
+live_config_reload = true
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Regular"
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "full"
+dynamic_title = true
+opacity = 0.9
+startup_mode = "Windowed"
+title = "Alacritty"
+
+[window.padding]
+x = 16
+y = 16
