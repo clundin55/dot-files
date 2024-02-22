@@ -108,18 +108,18 @@ alias bmv="bulk-renamer"
 
 function lightterm() {
     if [[ $OSTYPE == 'darwin'* ]]; then
-        sed -i '' '4s/.*/  - ~\/.config\/alacritty\/paper.yml/' ~/.config/alacritty/alacritty.yml
+        sed -i '' '1s/".*"/"~\/.config\/alacritty\/paper.toml"/' ~/.config/alacritty/alacritty.toml
     else
-        sed -i '4s/.*/  - ~\/.config\/alacritty\/paper.yml/' ~/.config/alacritty/alacritty.yml
+        sed -i '1s/".*"/"~\/.config\/alacritty\/paper.toml"/' ~/.config/alacritty/alacritty.toml
     fi
 
 }
 
 function darkterm() {
     if [[ $OSTYPE == 'darwin'* ]]; then
-        sed -i '' '4s/.*/  - ~\/.config\/alacritty\/darcula.yml/' ~/.config/alacritty/alacritty.yml
+        sed -i '' '1s/".*"/"~\/.config\/alacritty\/darcula.toml"/' ~/.config/alacritty/alacritty.toml
     else
-        sed -i '4s/.*/  - ~\/.config\/alacritty\/darcula.yml/' ~/.config/alacritty/alacritty.yml
+        sed -i '1s/".*"/"~\/.config\/alacritty\/darcula.toml"/' ~/.config/alacritty/alacritty.toml
     fi
 }
 
