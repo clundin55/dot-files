@@ -163,10 +163,10 @@ vim.api.nvim_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition(
 vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<leader>[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<leader>]d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>[d', '<cmd>lua vim.diagnostic.get_prev()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>]d', '<cmd>lua vim.diagnostic.get_next()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.get_loclist()<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap=true})
 
 -- Use an on_attach function to only map the following keys
