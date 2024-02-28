@@ -130,6 +130,14 @@ function rndd() {
     pushd $DIR
 }
 
+function chpwd() {
+  if [[ -f env/bin/activate ]]; then
+    source env/bin/activate
+  elif type deactivate &>/dev/null; then
+    deactivate
+  fi
+}
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
