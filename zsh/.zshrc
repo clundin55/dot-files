@@ -74,6 +74,9 @@ bindkey -v
 
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
+export PATH="$PATH:$HOME/.local/bin"
+
+export HSA_OVERRIDE_GFX_VERSION="10.3.0"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
