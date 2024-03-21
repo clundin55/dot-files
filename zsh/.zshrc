@@ -76,6 +76,7 @@ bindkey -v
 export EDITOR='nvim'
 export PATH="$PATH:$HOME/.local/bin"
 
+export GIT_EXTERNAL_DIFF=difft
 export HSA_OVERRIDE_GFX_VERSION="10.3.0"
 
 # Compilation flags
