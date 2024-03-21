@@ -40,7 +40,6 @@ require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
     use 'neovim/nvim-lspconfig'
-    use 'airblade/vim-rooter'
     use 'tpope/vim-fugitive'
     use 'voldikss/vim-floaterm'
     use 'tpope/vim-obsession'
