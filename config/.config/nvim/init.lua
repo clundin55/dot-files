@@ -139,7 +139,7 @@ require('rust-tools').setup(opts)
 -- map buffer local keybindings when the language server attaches
 local nvim_lsp = require('lspconfig')
 
-local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'ccls', 'gopls' }
+local servers = { 'pyright', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
