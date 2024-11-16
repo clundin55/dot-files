@@ -165,7 +165,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 #  setxkbmap -option caps:escape
 
 alias config='/usr/bin/git --git-dir=/home/carl/.cfg/ --work-tree=/home/carl'
-eval "$(starship init zsh)"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
