@@ -1,6 +1,7 @@
 -- Carl Lundin
 -- Set up common options
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 vim.opt.laststatus=2
 vim.opt.tabstop=4
 vim.opt.shiftwidth=4
@@ -19,84 +20,57 @@ vim.opt.hidden = true
 vim.opt.colorcolumn="120"
 vim.opt.swapfile = false
 
-
--- Install packer if it's not installed
-local execute = vim.api.nvim_command
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd [[packadd packer.nvim]]
-vim.api.nvim_exec([[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost plugins.lua PackerCompile
-  augroup end
-]], false)
-
-local use = require('packer').use
-require('packer').startup(function()
-    use {'wbthomason/packer.nvim', opt = true}
-    use 'folke/tokyonight.nvim'
-    use 'shaunsingh/nord.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'neovim/nvim-lspconfig'
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-obsession'
-    use 'voldikss/vim-floaterm'
-    use 'jremmen/vim-ripgrep'
-    use 'mrcjkb/rustaceanvim'
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {
-          'kyazdani42/nvim-web-devicons', -- optional, for file icon
-        },
-        config = function() require'nvim-tree'.setup {} end
-    }
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
-    }
-    use 'hrsh7th/nvim-cmp' 
-    use 'hrsh7th/cmp-nvim-lsp' 
-    use 'hrsh7th/vim-vsnip' 
-    use 'hrsh7th/cmp-vsnip'
-    use 'rafamadriz/friendly-snippets'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-buffer'
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use {
-        'L3MON4D3/LuaSnip',
-        config = function() require('config.snippets') end,
-    }
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = true}
-    }
-    use 'shaunsingh/solarized.nvim'
-    use 'marko-cerovac/material.nvim'
-    use {
-      "olimorris/codecompanion.nvim",
-      config = function()
-        require("codecompanion").setup()
-      end,
-      requires = {
+require("lazy").setup({
+    spec = {
+        "folke/tokyonight.nvim",
+        "shaunsingh/nord.nvim",
         "nvim-lua/plenary.nvim",
+        "neovim/nvim-lspconfig",
+        "tpope/vim-fugitive",
+        "tpope/vim-obsession",
+        "voldikss/vim-floaterm",
+        "jremmen/vim-ripgrep",
+        "mrcjkb/rustaceanvim",
+        "kyazdani42/nvim-web-devicons",
+        "kyazdani42/nvim-tree.lua",
         "nvim-treesitter/nvim-treesitter",
-      }
+        "hrsh7th/nvim-cmp",
+        "nvim-telescope/telescope.nvim",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/cmp-vsnip",
+        "hrsh7th/cmp-buffer",
+        "nvim-lualine/lualine.nvim",
+        {
+            "olimorris/codecompanion.nvim",
+            config = function()
+                require("codecompanion").setup({})
+            end,
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
+            }
+        }
     }
-end)
+})
 
-require('material').setup()
-vim.g.material_style = "lighter"
-
--- enable nvim-tree
+-- enable nvim-ree
 require'nvim-tree'.setup {
 }
 
@@ -179,11 +153,6 @@ vim.o.completeopt = 'menuone,noselect'
 -- nvim-cmp setup
 local cmp = require 'cmp'
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -198,8 +167,6 @@ cmp.setup {
     ['<Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -207,8 +174,6 @@ cmp.setup {
     ['<S-Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
       else
         fallback()
       end
@@ -216,7 +181,6 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
   },
@@ -260,12 +224,6 @@ require'lualine'.setup {
 require'nvim-web-devicons'.setup {
  default = true;
 }
-vim.api.nvim_set_keymap("i", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("s", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { noremap = true, silent = true })
-
-require("luasnip.loaders.from_vscode").lazy_load()
 
 require("codecompanion").setup({
   strategies = {
