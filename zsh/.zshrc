@@ -72,11 +72,13 @@ bindkey -v
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
+PROMPT='%W %T %n@%m %d 🦀  '
 export EDITOR='nvim'
 export PATH="$PATH:$HOME/.local/bin"
 
 export HSA_OVERRIDE_GFX_VERSION="10.3.0"
+# TODO Maybe wrap this in a function and parameterize the MODEL
+alias ask='ollama run llama3.2:latest'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -104,7 +106,7 @@ tma() {
   tmux a -t $(tmux ls | fzf | cut -d' ' -f 1)
 }
 
-alias tsm='transmission-remote'
+alias tsm='transmission-remote 192.168.50.33:9091'
 alias rzsh="source ~/.zshrc"
 alias fls="ls | fzf"
 alias bmv="bulk-renamer"
