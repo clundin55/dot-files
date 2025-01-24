@@ -81,6 +81,16 @@ require('packer').startup(function()
     }
     use 'shaunsingh/solarized.nvim'
     use 'marko-cerovac/material.nvim'
+    use {
+      "olimorris/codecompanion.nvim",
+      config = function()
+        require("codecompanion").setup()
+      end,
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+      }
+    }
 end)
 
 require('material').setup()
@@ -104,8 +114,8 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.cmd[[colorscheme tokyonight]]
 
@@ -256,3 +266,32 @@ vim.api.nvim_set_keymap("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", 
 vim.api.nvim_set_keymap("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { noremap = true, silent = true })
 
 require("luasnip.loaders.from_vscode").lazy_load()
+
+require("codecompanion").setup({
+  strategies = {
+    chat = {
+      adapter = "llama3",
+    },
+    inline = {
+      adapter = "llama3",
+    },
+  },
+  adapters = {
+    llama3 = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "llama3", -- Give this adapter a different name to differentiate it from the default ollama adapter
+        schema = {
+          model = {
+            default = "llama3.2:latest",
+          },
+          num_ctx = {
+            default = 16384,
+          },
+          num_predict = {
+            default = -1,
+          },
+        },
+      })
+    end,
+  },
+})
