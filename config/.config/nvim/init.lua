@@ -38,7 +38,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
-        "folke/tokyonight.nvim",
+        {
+          "folke/tokyonight.nvim",
+          opts = {
+            transparent = true,
+            styles = {
+              sidebars = "transparent",
+              floats = "transparent",
+            },
+          },
+        },
         "shaunsingh/nord.nvim",
         "nvim-lua/plenary.nvim",
         "neovim/nvim-lspconfig",
