@@ -79,7 +79,9 @@ export PATH="$PATH:$HOME/.local/bin"
 export GIT_EXTERNAL_DIFF=difft
 export HSA_OVERRIDE_GFX_VERSION="10.3.0"
 # TODO Maybe wrap this in a function and parameterize the MODEL
-alias ask='ollama run llama3.2:latest'
+function ask {
+    ollama run llama3.2:latest
+}
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
