@@ -89,7 +89,7 @@ require'nvim-tree'.setup {
 
 -- enable tree-sitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "rust", "markdown", "python", "c", "lua" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   highlight = {
     enable = true,              -- false will disable the whole extension
@@ -253,7 +253,7 @@ require("codecompanion").setup({
         name = "llama3", -- Give this adapter a different name to differentiate it from the default ollama adapter
         schema = {
           model = {
-            default = "llama3.2:latest",
+            default = "deepseek-r1:14b",
           },
           num_ctx = {
             default = 16384,
